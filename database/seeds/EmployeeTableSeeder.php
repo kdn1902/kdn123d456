@@ -18,8 +18,8 @@ class EmployeeTableSeeder extends Seeder
 		{
 			\App\Employee::create(['lastname' => str_random(10),
 						  'firstname' => str_random(10),
-						  'otchestvo' => str_random(10),
-						  'birthday' => $faker->dateTimeBetween('-55 years', '-20 years'),
+						  'middlename' => str_random(10),
+						  'birthday' => $faker->dateTimeBetween('-80 years', '-55 years'),
 						  'deathday' => $faker->dateTimeBetween('-5 years', '-1 years'),
 						  'address' => $faker->address]);
 

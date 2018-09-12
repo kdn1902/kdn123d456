@@ -1,7 +1,7 @@
 <template>
   <div id="dp">
         <datepicker :value="ddate" @selected="changeData" :clear-button=true @closed="closeDate"
-        :bootstrap-styling=true></datepicker>
+        :bootstrap-styling=true clear-button-icon="fa fa-times"></datepicker>
   </div>
 </template>
 

@@ -17,10 +17,10 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('lastname', 100);
             $table->string('firstname', 100);
-            $table->string('otchestvo', 100);
-            $table->date('birthday'); //день рождения
-			$table->date('deathday');
-            $table->string('address',200);
+            $table->string('middlename', 100);
+            $table->date('birthday');
+			$table->date('deathday')->nullable();
+            $table->string('address',200)->nullable();
             $table->timestamps();
         });
     }

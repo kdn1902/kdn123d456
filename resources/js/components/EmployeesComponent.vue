@@ -23,7 +23,7 @@
     export default {
     	data(){
 			return{
-		 	     columns: ['lastname', 'firstname', 'otchestvo','birthday','deathday', 'address', 'actions'],
+		 	     columns: ['lastname', 'firstname', 'middlename','birthday','deathday', 'address', 'actions'],
         		 options: {
         				params: {
 							datefields: ['birthday','deathday']
@@ -31,7 +31,7 @@
         				headings:{ 
             						lastname: 'Lastname',
 					              	firstname: 'Firstname',
-					              	otchestvo: 'Middlename',
+					              	middlename: 'Middlename',
 					              	birthday: 'Birthday',
 					              	deathday: 'Deathday',
 									address: 'Address'
@@ -48,13 +48,20 @@
         	};
 		},
         mounted() {
-            console.log('Component mounted.')
+          //  console.log('Component mounted.')
         },
         methods:{
 			getdate(ddate)
 			{
-				var d = new Date(ddate);
-				return d.toLocaleFormat('%d %b %Y')
+				if (ddate != null)
+				{
+					var d = new Date(ddate);
+					return d.toLocaleFormat('%d %b %Y')
+				}
+				else
+				{
+					return null;
+				}
 			},
 			getemployee: function(id)
 			{

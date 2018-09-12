@@ -28429,9 +28429,9 @@ window.Vue = __webpack_require__(7);
  */
 
 
-Vue.component('employees-component', __webpack_require__(68));
-Vue.component('employee-component', __webpack_require__(71));
-Vue.component('mydatepicker', __webpack_require__(74));
+Vue.component('employees-component', __webpack_require__(67));
+Vue.component('employee-component', __webpack_require__(70));
+Vue.component('mydatepicker', __webpack_require__(73));
 
 Vue.directive('focus', {
   inserted: function inserted(el) {
@@ -50690,6 +50690,850 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 /* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(68)
+/* template */
+var __vue_template__ = __webpack_require__(69)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/EmployeesComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1964beba", Component.options)
+  } else {
+    hotAPI.reload("data-v-1964beba", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			columns: ['lastname', 'firstname', 'middlename', 'birthday', 'deathday', 'address', 'actions'],
+			options: {
+				params: {
+					datefields: ['birthday', 'deathday']
+				},
+				headings: {
+					lastname: 'Lastname',
+					firstname: 'Firstname',
+					middlename: 'Middlename',
+					birthday: 'Birthday',
+					deathday: 'Deathday',
+					address: 'Address'
+				},
+				requestFunction: function requestFunction(data) {
+					return axios.get(this.url, {
+						params: data
+					}).catch(function (e) {
+						this.dispatch('error', e);
+					}.bind(this));
+				}
+			}
+		};
+	},
+	mounted: function mounted() {
+		//  console.log('Component mounted.')
+	},
+
+	methods: {
+		getdate: function getdate(ddate) {
+			if (ddate != null) {
+				var d = new Date(ddate);
+				return d.toLocaleFormat('%d %b %Y');
+			} else {
+				return null;
+			}
+		},
+
+		getemployee: function getemployee(id) {
+			return "/getemployee/" + id;
+		}
+
+	}
+});
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-server-table", {
+    attrs: { url: "/getemployees", columns: _vm.columns, options: _vm.options },
+    scopedSlots: _vm._u([
+      {
+        key: "birthday",
+        fn: function(props) {
+          return [
+            _c("div", [
+              _vm._v(
+                "\n      \t\t\t\t\t\t\t\t" +
+                  _vm._s(_vm.getdate(props.row.birthday)) +
+                  "\n    \t\t\t\t\t\t\t"
+              )
+            ])
+          ]
+        }
+      },
+      {
+        key: "deathday",
+        fn: function(props) {
+          return [
+            _c("div", [
+              _vm._v(
+                "\n      \t\t\t\t\t\t\t\t" +
+                  _vm._s(_vm.getdate(props.row.deathday)) +
+                  "\n    \t\t\t\t\t\t\t"
+              )
+            ])
+          ]
+        }
+      },
+      {
+        key: "actions",
+        fn: function(props) {
+          return [
+            _c("div", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: _vm.getemployee(props.row.id), role: "button" }
+                },
+                [_vm._v("View")]
+              )
+            ])
+          ]
+        }
+      }
+    ])
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1964beba", module.exports)
+  }
+}
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(71)
+/* template */
+var __vue_template__ = __webpack_require__(72)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/EmployeeComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-20dc3794", Component.options)
+  } else {
+    hotAPI.reload("data-v-20dc3794", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      last_birthday: null,
+      is_lastname_view: true,
+      is_firstname_view: true,
+      is_middlename_view: true,
+      is_birthday_view: true,
+      is_deathday_view: true,
+      is_address_view: true,
+      err: null,
+      status: null
+    };
+  },
+
+  props: ['empl'],
+  mounted: function mounted() {
+    this.last_birthday = this.empl.birthday;
+  },
+
+  methods: {
+    saveEmployee: function saveEmployee() {
+      var _this = this;
+
+      axios.post('/savemployee', {
+        id: this.empl.id,
+        lastname: this.empl.lastname,
+        firstname: this.empl.firstname,
+        middlename: this.empl.middlename,
+        birthday: this.empl.birthday,
+        deathday: this.empl.deathday,
+        address: this.empl.address
+      }).then(function (response) {
+        _this.err = null;
+        _this.status = response.data.status;
+      }).catch(function (error) {
+        _this.status = null;
+        _this.err = error.response.data.errors;
+      });
+    },
+    changeBirthday: function changeBirthday(newdata) {
+      if (newdata != null) {
+        this.empl.birthday = newdata;
+      } else {
+        this.empl.birthday = this.last_birthday;
+      }
+    },
+    closeBirthday: function closeBirthday() {
+      this.is_birthday_view = true;
+    },
+    changeDeathday: function changeDeathday(newdata) {
+      this.empl.deathday = newdata;
+    },
+    closeDeathday: function closeDeathday() {
+      this.is_deathday_view = true;
+    }
+  }
+});
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("div", { staticClass: "pull-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-sm",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.saveEmployee($event)
+                  }
+                }
+              },
+              [_vm._v("Save change")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm.status || _vm.err
+              ? _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
+                  _c("div", { staticClass: "panel panel-default" }, [
+                    _c("div", { staticClass: "panel-body" }, [
+                      _vm.status
+                        ? _c("p", { staticClass: "text-success" }, [
+                            _vm._v(_vm._s(_vm.status))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.err
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.err, function(value) {
+                              return _c("li", [
+                                _c("p", { staticClass: "text-danger" }, [
+                                  _vm._v(_vm._s(value[0]))
+                                ])
+                              ])
+                            })
+                          )
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("table", { staticClass: "table table-bordered" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("tr", { staticClass: "table-info" }, [
+              _c(
+                "td",
+                {
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      _vm.is_lastname_view = !_vm.is_lastname_view
+                      _vm.is_birthday_view = true
+                      _vm.is_deathday_view = true
+                    }
+                  }
+                },
+                [
+                  _vm.is_lastname_view
+                    ? [_vm._v(" " + _vm._s(_vm.empl.lastname) + " ")]
+                    : [
+                        _c("input", {
+                          directives: [
+                            { name: "focus", rawName: "v-focus" },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.empl.lastname,
+                              expression: "empl.lastname"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.empl.lastname },
+                          on: {
+                            blur: function($event) {
+                              _vm.is_lastname_view = true
+                            },
+                            keyup: function($event) {
+                              if (
+                                !("button" in $event) &&
+                                $event.keyCode !== 13
+                              ) {
+                                return null
+                              }
+                              _vm.is_lastname_view = true
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.empl,
+                                "lastname",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      _vm.is_firstname_view = !_vm.is_firstname_view
+                      _vm.is_birthday_view = true
+                      _vm.is_deathday_view = true
+                    }
+                  }
+                },
+                [
+                  _vm.is_firstname_view
+                    ? [_vm._v(" " + _vm._s(_vm.empl.firstname) + " ")]
+                    : [
+                        _c("input", {
+                          directives: [
+                            { name: "focus", rawName: "v-focus" },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.empl.firstname,
+                              expression: "empl.firstname"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.empl.firstname },
+                          on: {
+                            blur: function($event) {
+                              _vm.is_firstname_view = true
+                            },
+                            keyup: function($event) {
+                              if (
+                                !("button" in $event) &&
+                                $event.keyCode !== 13
+                              ) {
+                                return null
+                              }
+                              _vm.is_firstname_view = true
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.empl,
+                                "firstname",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      _vm.is_middlename_view = !_vm.is_middlename_view
+                      _vm.is_birthday_view = true
+                      _vm.is_deathday_view = true
+                    }
+                  }
+                },
+                [
+                  _vm.is_middlename_view
+                    ? [_vm._v(" " + _vm._s(_vm.empl.middlename) + " ")]
+                    : [
+                        _c("input", {
+                          directives: [
+                            { name: "focus", rawName: "v-focus" },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.empl.middlename,
+                              expression: "empl.middlename"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.empl.middlename },
+                          on: {
+                            blur: function($event) {
+                              _vm.is_middlename_view = true
+                            },
+                            keyup: function($event) {
+                              if (
+                                !("button" in $event) &&
+                                $event.keyCode !== 13
+                              ) {
+                                return null
+                              }
+                              _vm.is_middlename_view = true
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.empl,
+                                "middlename",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      _vm.is_birthday_view = !_vm.is_birthday_view
+                    }
+                  }
+                },
+                [
+                  _vm.is_birthday_view
+                    ? [_vm._v(" " + _vm._s(_vm.empl.birthday))]
+                    : [
+                        _c("mydatepicker", {
+                          attrs: { ddate: _vm.empl.birthday },
+                          on: {
+                            changedate: _vm.changeBirthday,
+                            closedate: _vm.closeBirthday
+                          }
+                        })
+                      ]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      _vm.is_deathday_view = !_vm.is_deathday_view
+                    }
+                  }
+                },
+                [
+                  _vm.is_deathday_view
+                    ? [_vm._v(" " + _vm._s(_vm.empl.deathday))]
+                    : [
+                        _c("mydatepicker", {
+                          attrs: { ddate: _vm.empl.deathday },
+                          on: {
+                            changedate: _vm.changeDeathday,
+                            closedate: _vm.closeDeathday
+                          }
+                        })
+                      ]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  on: {
+                    click: function($event) {
+                      if ($event.target !== $event.currentTarget) {
+                        return null
+                      }
+                      _vm.is_address_view = !_vm.is_address_view
+                      _vm.is_birthday_view = true
+                      _vm.is_deathday_view = true
+                    }
+                  }
+                },
+                [
+                  _vm.is_address_view
+                    ? [_vm._v(" " + _vm._s(_vm.empl.address) + " ")]
+                    : [
+                        _c("input", {
+                          directives: [
+                            { name: "focus", rawName: "v-focus" },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.empl.address,
+                              expression: "empl.address"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.empl.address },
+                          on: {
+                            blur: function($event) {
+                              _vm.is_address_view = true
+                            },
+                            keyup: function($event) {
+                              if (
+                                !("button" in $event) &&
+                                $event.keyCode !== 13
+                              ) {
+                                return null
+                              }
+                              _vm.is_address_view = true
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.empl, "address", $event.target.value)
+                            }
+                          }
+                        })
+                      ]
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("th", [_vm._v("Lastname")]),
+      _c("th", [_vm._v("Firstname")]),
+      _c("th", [_vm._v("Middlename")]),
+      _c("th", [_vm._v("Birstday")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Deathday")]),
+      _c("th", [_vm._v("Address")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-20dc3794", module.exports)
+  }
+}
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(74)
+/* template */
+var __vue_template__ = __webpack_require__(76)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/MyDatepicker.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-332eb073", Component.options)
+  } else {
+    hotAPI.reload("data-v-332eb073", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__(75);
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'dp',
+  components: { Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */] },
+  props: ['ddate'],
+  methods: {
+    changeData: function changeData(newdate) {
+      if (newdate != null) {
+        this.$emit('changedate', newdate.toLocaleFormat('%Y-%m-%d'));
+      } else {
+        this.$emit('changedate');
+      }
+    },
+    closeDate: function closeDate() {
+      this.$emit('closedate');
+    }
+  }
+});
+
+/***/ }),
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52173,720 +53017,6 @@ var Datepicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
 
 /***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(8)
-/* script */
-var __vue_script__ = __webpack_require__(69)
-/* template */
-var __vue_template__ = __webpack_require__(70)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/EmployeesComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1964beba", Component.options)
-  } else {
-    hotAPI.reload("data-v-1964beba", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 69 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			columns: ['lastname', 'firstname', 'otchestvo', 'birthday', 'deathday', 'address', 'actions'],
-			options: {
-				params: {
-					datefields: ['birthday', 'deathday']
-				},
-				headings: {
-					lastname: 'Lastname',
-					firstname: 'Firstname',
-					otchestvo: 'Middlename',
-					birthday: 'Birthday',
-					deathday: 'Deathday',
-					address: 'Address'
-				},
-				requestFunction: function requestFunction(data) {
-					return axios.get(this.url, {
-						params: data
-					}).catch(function (e) {
-						this.dispatch('error', e);
-					}.bind(this));
-				}
-			}
-		};
-	},
-	mounted: function mounted() {
-		console.log('Component mounted.');
-	},
-
-	methods: {
-		getdate: function getdate(ddate) {
-			var d = new Date(ddate);
-			return d.toLocaleFormat('%d %b %Y');
-		},
-
-		getemployee: function getemployee(id) {
-			return "/getemployee/" + id;
-		}
-
-	}
-});
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("v-server-table", {
-    attrs: { url: "/getemployees", columns: _vm.columns, options: _vm.options },
-    scopedSlots: _vm._u([
-      {
-        key: "birthday",
-        fn: function(props) {
-          return [
-            _c("div", [
-              _vm._v(
-                "\n      \t\t\t\t\t\t\t\t" +
-                  _vm._s(_vm.getdate(props.row.birthday)) +
-                  "\n    \t\t\t\t\t\t\t"
-              )
-            ])
-          ]
-        }
-      },
-      {
-        key: "deathday",
-        fn: function(props) {
-          return [
-            _c("div", [
-              _vm._v(
-                "\n      \t\t\t\t\t\t\t\t" +
-                  _vm._s(_vm.getdate(props.row.deathday)) +
-                  "\n    \t\t\t\t\t\t\t"
-              )
-            ])
-          ]
-        }
-      },
-      {
-        key: "actions",
-        fn: function(props) {
-          return [
-            _c("div", [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { href: _vm.getemployee(props.row.id), role: "button" }
-                },
-                [_vm._v("View")]
-              )
-            ])
-          ]
-        }
-      }
-    ])
-  })
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1964beba", module.exports)
-  }
-}
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(8)
-/* script */
-var __vue_script__ = __webpack_require__(72)
-/* template */
-var __vue_template__ = __webpack_require__(73)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/EmployeeComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20dc3794", Component.options)
-  } else {
-    hotAPI.reload("data-v-20dc3794", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 72 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      last_birthday: null,
-      is_lastname_view: true,
-      is_firstname_view: true,
-      is_middlename_view: true,
-      is_birthday_view: true,
-      is_deathday_view: true,
-      is_address_view: true
-    };
-  },
-
-  props: ['empl'],
-  mounted: function mounted() {
-    this.last_birthday = this.empl.birthday;
-  },
-
-  methods: {
-    changeBirthday: function changeBirthday(newdata) {
-      if (newdata != null) {
-        this.empl.birthday = newdata;
-      } else {
-        this.empl.birthday = this.last_birthday;
-      }
-    },
-    closeBirthday: function closeBirthday() {
-      this.is_birthday_view = true;
-    },
-    changeDeathday: function changeDeathday(newdata) {
-      this.empl.deathday = newdata;
-    },
-    closeDeathday: function closeDeathday() {
-      this.is_deathday_view = true;
-    }
-  }
-});
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("table", { staticClass: "table table-bordered" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("tr", { staticClass: "table-info" }, [
-        _c(
-          "td",
-          {
-            on: {
-              click: function($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                _vm.is_lastname_view = !_vm.is_lastname_view
-                _vm.is_birthday_view = true
-                _vm.is_deathday_view = true
-              }
-            }
-          },
-          [
-            _vm.is_lastname_view
-              ? [_vm._v(" " + _vm._s(_vm.empl.lastname) + " ")]
-              : [
-                  _c("input", {
-                    directives: [
-                      { name: "focus", rawName: "v-focus" },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.empl.lastname,
-                        expression: "empl.lastname"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.empl.lastname },
-                    on: {
-                      blur: function($event) {
-                        _vm.is_lastname_view = true
-                      },
-                      keyup: function($event) {
-                        if (!("button" in $event) && $event.keyCode !== 13) {
-                          return null
-                        }
-                        _vm.is_lastname_view = true
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.empl, "lastname", $event.target.value)
-                      }
-                    }
-                  })
-                ]
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            on: {
-              click: function($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                _vm.is_firstname_view = !_vm.is_firstname_view
-                _vm.is_birthday_view = true
-                _vm.is_deathday_view = true
-              }
-            }
-          },
-          [
-            _vm.is_firstname_view
-              ? [_vm._v(" " + _vm._s(_vm.empl.firstname) + " ")]
-              : [
-                  _c("input", {
-                    directives: [
-                      { name: "focus", rawName: "v-focus" },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.empl.firstname,
-                        expression: "empl.firstname"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.empl.firstname },
-                    on: {
-                      blur: function($event) {
-                        _vm.is_firstname_view = true
-                      },
-                      keyup: function($event) {
-                        if (!("button" in $event) && $event.keyCode !== 13) {
-                          return null
-                        }
-                        _vm.is_firstname_view = true
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.empl, "firstname", $event.target.value)
-                      }
-                    }
-                  })
-                ]
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            on: {
-              click: function($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                _vm.is_middlename_view = !_vm.is_middlename_view
-                _vm.is_birthday_view = true
-                _vm.is_deathday_view = true
-              }
-            }
-          },
-          [
-            _vm.is_middlename_view
-              ? [_vm._v(" " + _vm._s(_vm.empl.otchestvo) + " ")]
-              : [
-                  _c("input", {
-                    directives: [
-                      { name: "focus", rawName: "v-focus" },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.empl.otchestvo,
-                        expression: "empl.otchestvo"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.empl.otchestvo },
-                    on: {
-                      blur: function($event) {
-                        _vm.is_middlename_view = true
-                      },
-                      keyup: function($event) {
-                        if (!("button" in $event) && $event.keyCode !== 13) {
-                          return null
-                        }
-                        _vm.is_middlename_view = true
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.empl, "otchestvo", $event.target.value)
-                      }
-                    }
-                  })
-                ]
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            on: {
-              click: function($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                _vm.is_birthday_view = !_vm.is_birthday_view
-              }
-            }
-          },
-          [
-            _vm.is_birthday_view
-              ? [_vm._v(" " + _vm._s(_vm.empl.birthday))]
-              : [
-                  _c("mydatepicker", {
-                    attrs: { ddate: _vm.empl.birthday },
-                    on: {
-                      changedate: _vm.changeBirthday,
-                      closedate: _vm.closeBirthday
-                    }
-                  })
-                ]
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            on: {
-              click: function($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                _vm.is_deathday_view = !_vm.is_deathday_view
-              }
-            }
-          },
-          [
-            _vm.is_deathday_view
-              ? [_vm._v(" " + _vm._s(_vm.empl.deathday))]
-              : [
-                  _c("mydatepicker", {
-                    attrs: { ddate: _vm.empl.deathday },
-                    on: {
-                      changedate: _vm.changeDeathday,
-                      closedate: _vm.closeDeathday
-                    }
-                  })
-                ]
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            on: {
-              click: function($event) {
-                if ($event.target !== $event.currentTarget) {
-                  return null
-                }
-                _vm.is_address_view = !_vm.is_address_view
-                _vm.is_birthday_view = true
-                _vm.is_deathday_view = true
-              }
-            }
-          },
-          [
-            _vm.is_address_view
-              ? [_vm._v(" " + _vm._s(_vm.empl.address) + " ")]
-              : [
-                  _c("input", {
-                    directives: [
-                      { name: "focus", rawName: "v-focus" },
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.empl.address,
-                        expression: "empl.address"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.empl.address },
-                    on: {
-                      blur: function($event) {
-                        _vm.is_address_view = true
-                      },
-                      keyup: function($event) {
-                        if (!("button" in $event) && $event.keyCode !== 13) {
-                          return null
-                        }
-                        _vm.is_address_view = true
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.empl, "address", $event.target.value)
-                      }
-                    }
-                  })
-                ]
-          ],
-          2
-        )
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("th", [_vm._v("Lastname")]),
-      _c("th", [_vm._v("Firstname")]),
-      _c("th", [_vm._v("Middlename")]),
-      _c("th", [_vm._v("Birstday")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Deathday")]),
-      _c("th", [_vm._v("Address")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-20dc3794", module.exports)
-  }
-}
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(8)
-/* script */
-var __vue_script__ = __webpack_require__(75)
-/* template */
-var __vue_template__ = __webpack_require__(76)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/MyDatepicker.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-332eb073", Component.options)
-  } else {
-    hotAPI.reload("data-v-332eb073", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 75 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__(67);
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'dp',
-  components: { Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */] },
-  props: ['ddate'],
-  methods: {
-    changeData: function changeData(newdate) {
-      if (newdate != null) {
-        this.$emit('changedate', newdate.toLocaleFormat('%Y-%m-%d'));
-      } else {
-        this.$emit('changedate');
-      }
-    },
-    closeDate: function closeDate() {
-      this.$emit('closedate');
-    }
-  }
-});
-
-/***/ }),
 /* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -52902,7 +53032,8 @@ var render = function() {
         attrs: {
           value: _vm.ddate,
           "clear-button": true,
-          "bootstrap-styling": true
+          "bootstrap-styling": true,
+          "clear-button-icon": "fa fa-times"
         },
         on: { selected: _vm.changeData, closed: _vm.closeDate }
       })

@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/getemployees', 'HomeController@getemployees');
 Route::get('/getemployee/{id}', 'HomeController@getemployee');
+Route::post('/savemployee', 'HomeController@saveemployee');
