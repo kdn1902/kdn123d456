@@ -85,7 +85,7 @@
             </div>
        		<template v-for="photo in empl.photo">
 			<div :id="getphotoid(photo)" class="modal fade">
-				<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-dialog">
 						<img :src="photo_url(photo)"></img>
 				</div>
 			</div>

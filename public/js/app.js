@@ -51604,14 +51604,9 @@ var render = function() {
                 attrs: { id: _vm.getphotoid(photo) }
               },
               [
-                _c(
-                  "div",
-                  {
-                    staticClass: "modal-dialog modal-dialog-centered",
-                    attrs: { role: "document" }
-                  },
-                  [_c("img", { attrs: { src: _vm.photo_url(photo) } })]
-                )
+                _c("div", { staticClass: "modal-dialog" }, [
+                  _c("img", { attrs: { src: _vm.photo_url(photo) } })
+                ])
               ]
             )
           ]
