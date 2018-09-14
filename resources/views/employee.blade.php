@@ -3,6 +3,6 @@
 @section('content')
 <div class="container">
 	<div id=app>
-		<employee-component :empl='{!! $empl !!}' ></employee-component>
+		<employee-component employee='{!! $empl !!}' ></employee-component>
 	</div>
 @endsection

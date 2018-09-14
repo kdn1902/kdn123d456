@@ -51002,12 +51002,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      last_birthday: null,
+      empl: {},
       is_lastname_view: true,
       is_firstname_view: true,
       is_middlename_view: true,
@@ -51015,18 +51041,83 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       is_deathday_view: true,
       is_address_view: true,
       err: null,
-      status: null
+      status: null,
+      image: null,
+      content: null
     };
   },
 
-  props: ['empl'],
+  props: ['employee'],
   mounted: function mounted() {
-    this.last_birthday = this.empl.birthday;
+    this.empl = JSON.parse(this.employee);
   },
 
+  computed: {
+    /*  		   	 has_photo(){
+    	 	 	 return this.empl.small_photo == null ? false: true;
+    			 },*/
+
+    src: function src() {
+      if (this.content) {
+        return this.content;
+      }
+    }
+  },
   methods: {
-    saveEmployee: function saveEmployee() {
+    getsmallphotoid: function getsmallphotoid(photo) {
+      return "#" + photo.replace('employee_photo/small/', '').replace(/[^a-zA-Z]/g, '');
+    },
+    getphotoid: function getphotoid(photo) {
+      return photo.replace('employee_photo/', '').replace(/[^a-zA-Z]/g, '');
+    },
+    photo_url: function photo_url(photo) {
+      return "/storage/" + photo;
+    },
+    small_photo_url: function small_photo_url(photo) {
+      return "/storage/" + photo;
+    },
+    dropPhoto: function dropPhoto(photo) {
       var _this = this;
+
+      if (confirm("Do you want to delete the photo?")) {
+        axios.post('/dropphoto', {
+          smallphoto: photo
+        }).then(function (response) {
+          _this.empl.photo.splice(_this.empl.photo.indexOf(response.data.photo), 1);
+          _this.empl.small_photo.splice(_this.empl.small_photo.indexOf(response.data.small_photo), 1);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
+    changePhoto: function changePhoto(e) {
+      e.preventDefault();
+      this.image = e.target.files[0];
+      var reader = new FileReader();
+      reader.onload = this.onImageLoad;
+      reader.readAsDataURL(this.image);
+    },
+    onImageLoad: function onImageLoad(e) {
+      this.content = e.target.result;
+    },
+    uploadPhoto: function uploadPhoto() {
+      var _this2 = this;
+
+      var data = new FormData();
+      data.append('image', this.image);
+      data.append('id', this.empl.id);
+      axios.post('/uploadfoto', data).then(function (response) {
+        _this2.empl.photo.push(response.data.photo);
+        _this2.empl.small_photo.push(response.data.small_photo);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    cancelEmployee: function cancelEmployee() {
+      this.empl = JSON.parse(this.employee);
+    },
+    saveEmployee: function saveEmployee() {
+      var _this3 = this;
 
       axios.post('/savemployee', {
         id: this.empl.id,
@@ -51037,18 +51128,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deathday: this.empl.deathday,
         address: this.empl.address
       }).then(function (response) {
-        _this.err = null;
-        _this.status = response.data.status;
+        _this3.err = null;
+        _this3.status = response.data.status;
       }).catch(function (error) {
-        _this.status = null;
-        _this.err = error.response.data.errors;
+        _this3.status = null;
+        _this3.err = error.response.data.errors;
       });
     },
     changeBirthday: function changeBirthday(newdata) {
       if (newdata != null) {
         this.empl.birthday = newdata;
       } else {
-        this.empl.birthday = this.last_birthday;
+        this.empl.birthday = this.employee.birthday;
       }
     },
     closeBirthday: function closeBirthday() {
@@ -51072,14 +51163,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row justify-content-center" }, [
-    _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("div", { staticClass: "pull-right" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-12" },
+      [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
             _c(
               "button",
               {
-                staticClass: "btn btn-primary btn-sm",
+                staticClass: "btn btn-primary",
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
@@ -51088,341 +51181,444 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Save change")]
+              [_vm._v("Save changes")]
+            ),
+            _vm._v(
+              "\n                   \t\t\t     \n                   \t\t\t"
+            ),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-warning",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.cancelEmployee($event)
+                  }
+                }
+              },
+              [_vm._v("Cancel changes")]
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _vm.status
+                ? _c("p", { staticClass: "text-success" }, [
+                    _vm._v(_vm._s(_vm.status))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.err
+                ? _c(
+                    "ul",
+                    _vm._l(_vm.err, function(value) {
+                      return _c("li", [
+                        _c("p", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(value[0]))
+                        ])
+                      ])
+                    })
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("table", { staticClass: "table table-bordered" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("tr", { staticClass: "table-info" }, [
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          _vm.is_lastname_view = !_vm.is_lastname_view
+                          _vm.is_birthday_view = true
+                          _vm.is_deathday_view = true
+                        }
+                      }
+                    },
+                    [
+                      _vm.is_lastname_view
+                        ? [_vm._v(" " + _vm._s(_vm.empl.lastname) + " ")]
+                        : [
+                            _c("input", {
+                              directives: [
+                                { name: "focus", rawName: "v-focus" },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.empl.lastname,
+                                  expression: "empl.lastname"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              domProps: { value: _vm.empl.lastname },
+                              on: {
+                                blur: function($event) {
+                                  _vm.is_lastname_view = true
+                                },
+                                keyup: function($event) {
+                                  if (
+                                    !("button" in $event) &&
+                                    $event.keyCode !== 13
+                                  ) {
+                                    return null
+                                  }
+                                  _vm.is_lastname_view = true
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.empl,
+                                    "lastname",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          _vm.is_firstname_view = !_vm.is_firstname_view
+                          _vm.is_birthday_view = true
+                          _vm.is_deathday_view = true
+                        }
+                      }
+                    },
+                    [
+                      _vm.is_firstname_view
+                        ? [_vm._v(" " + _vm._s(_vm.empl.firstname) + " ")]
+                        : [
+                            _c("input", {
+                              directives: [
+                                { name: "focus", rawName: "v-focus" },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.empl.firstname,
+                                  expression: "empl.firstname"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              domProps: { value: _vm.empl.firstname },
+                              on: {
+                                blur: function($event) {
+                                  _vm.is_firstname_view = true
+                                },
+                                keyup: function($event) {
+                                  if (
+                                    !("button" in $event) &&
+                                    $event.keyCode !== 13
+                                  ) {
+                                    return null
+                                  }
+                                  _vm.is_firstname_view = true
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.empl,
+                                    "firstname",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          _vm.is_middlename_view = !_vm.is_middlename_view
+                          _vm.is_birthday_view = true
+                          _vm.is_deathday_view = true
+                        }
+                      }
+                    },
+                    [
+                      _vm.is_middlename_view
+                        ? [_vm._v(" " + _vm._s(_vm.empl.middlename) + " ")]
+                        : [
+                            _c("input", {
+                              directives: [
+                                { name: "focus", rawName: "v-focus" },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.empl.middlename,
+                                  expression: "empl.middlename"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              domProps: { value: _vm.empl.middlename },
+                              on: {
+                                blur: function($event) {
+                                  _vm.is_middlename_view = true
+                                },
+                                keyup: function($event) {
+                                  if (
+                                    !("button" in $event) &&
+                                    $event.keyCode !== 13
+                                  ) {
+                                    return null
+                                  }
+                                  _vm.is_middlename_view = true
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.empl,
+                                    "middlename",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          _vm.is_birthday_view = !_vm.is_birthday_view
+                        }
+                      }
+                    },
+                    [
+                      _vm.is_birthday_view
+                        ? [_vm._v(" " + _vm._s(_vm.empl.birthday))]
+                        : [
+                            _c("mydatepicker", {
+                              attrs: { ddate: _vm.empl.birthday },
+                              on: {
+                                changedate: _vm.changeBirthday,
+                                closedate: _vm.closeBirthday
+                              }
+                            })
+                          ]
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          _vm.is_deathday_view = !_vm.is_deathday_view
+                        }
+                      }
+                    },
+                    [
+                      _vm.is_deathday_view
+                        ? [_vm._v(" " + _vm._s(_vm.empl.deathday))]
+                        : [
+                            _c("mydatepicker", {
+                              attrs: { ddate: _vm.empl.deathday },
+                              on: {
+                                changedate: _vm.changeDeathday,
+                                closedate: _vm.closeDeathday
+                              }
+                            })
+                          ]
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          _vm.is_address_view = !_vm.is_address_view
+                          _vm.is_birthday_view = true
+                          _vm.is_deathday_view = true
+                        }
+                      }
+                    },
+                    [
+                      _vm.is_address_view
+                        ? [_vm._v(" " + _vm._s(_vm.empl.address) + " ")]
+                        : [
+                            _c("input", {
+                              directives: [
+                                { name: "focus", rawName: "v-focus" },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.empl.address,
+                                  expression: "empl.address"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              domProps: { value: _vm.empl.address },
+                              on: {
+                                blur: function($event) {
+                                  _vm.is_address_view = true
+                                },
+                                keyup: function($event) {
+                                  if (
+                                    !("button" in $event) &&
+                                    $event.keyCode !== 13
+                                  ) {
+                                    return null
+                                  }
+                                  _vm.is_address_view = true
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.empl,
+                                    "address",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "table",
+              _vm._l(_vm.empl.small_photo, function(photo) {
+                return _c("tr", [
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          "data-toggle": "modal",
+                          "data-target": _vm.getsmallphotoid(photo)
+                        }
+                      },
+                      [
+                        _c("img", {
+                          attrs: { src: _vm.small_photo_url(photo) }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v("\n\t\t\t\t\t     "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.dropPhoto(photo)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete photo")]
+                    )
+                  ])
+                ])
+              })
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+                _c("input", {
+                  attrs: { type: "file", accept: "image/*", name: "image" },
+                  on: { change: _vm.changePhoto }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.uploadPhoto }
+                  },
+                  [_vm._v("Upload photo")]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _c("img", { attrs: { src: _vm.src } })
+              ])
+            ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _vm.status || _vm.err
-              ? _c("div", { staticClass: "col-md-10 col-md-offset-1" }, [
-                  _c("div", { staticClass: "panel panel-default" }, [
-                    _c("div", { staticClass: "panel-body" }, [
-                      _vm.status
-                        ? _c("p", { staticClass: "text-success" }, [
-                            _vm._v(_vm._s(_vm.status))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.err
-                        ? _c(
-                            "ul",
-                            _vm._l(_vm.err, function(value) {
-                              return _c("li", [
-                                _c("p", { staticClass: "text-danger" }, [
-                                  _vm._v(_vm._s(value[0]))
-                                ])
-                              ])
-                            })
-                          )
-                        : _vm._e()
-                    ])
-                  ])
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table table-bordered" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("tr", { staticClass: "table-info" }, [
-              _c(
-                "td",
-                {
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      _vm.is_lastname_view = !_vm.is_lastname_view
-                      _vm.is_birthday_view = true
-                      _vm.is_deathday_view = true
-                    }
-                  }
-                },
-                [
-                  _vm.is_lastname_view
-                    ? [_vm._v(" " + _vm._s(_vm.empl.lastname) + " ")]
-                    : [
-                        _c("input", {
-                          directives: [
-                            { name: "focus", rawName: "v-focus" },
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.empl.lastname,
-                              expression: "empl.lastname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          domProps: { value: _vm.empl.lastname },
-                          on: {
-                            blur: function($event) {
-                              _vm.is_lastname_view = true
-                            },
-                            keyup: function($event) {
-                              if (
-                                !("button" in $event) &&
-                                $event.keyCode !== 13
-                              ) {
-                                return null
-                              }
-                              _vm.is_lastname_view = true
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.empl,
-                                "lastname",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "td",
-                {
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      _vm.is_firstname_view = !_vm.is_firstname_view
-                      _vm.is_birthday_view = true
-                      _vm.is_deathday_view = true
-                    }
-                  }
-                },
-                [
-                  _vm.is_firstname_view
-                    ? [_vm._v(" " + _vm._s(_vm.empl.firstname) + " ")]
-                    : [
-                        _c("input", {
-                          directives: [
-                            { name: "focus", rawName: "v-focus" },
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.empl.firstname,
-                              expression: "empl.firstname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          domProps: { value: _vm.empl.firstname },
-                          on: {
-                            blur: function($event) {
-                              _vm.is_firstname_view = true
-                            },
-                            keyup: function($event) {
-                              if (
-                                !("button" in $event) &&
-                                $event.keyCode !== 13
-                              ) {
-                                return null
-                              }
-                              _vm.is_firstname_view = true
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.empl,
-                                "firstname",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "td",
-                {
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      _vm.is_middlename_view = !_vm.is_middlename_view
-                      _vm.is_birthday_view = true
-                      _vm.is_deathday_view = true
-                    }
-                  }
-                },
-                [
-                  _vm.is_middlename_view
-                    ? [_vm._v(" " + _vm._s(_vm.empl.middlename) + " ")]
-                    : [
-                        _c("input", {
-                          directives: [
-                            { name: "focus", rawName: "v-focus" },
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.empl.middlename,
-                              expression: "empl.middlename"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          domProps: { value: _vm.empl.middlename },
-                          on: {
-                            blur: function($event) {
-                              _vm.is_middlename_view = true
-                            },
-                            keyup: function($event) {
-                              if (
-                                !("button" in $event) &&
-                                $event.keyCode !== 13
-                              ) {
-                                return null
-                              }
-                              _vm.is_middlename_view = true
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.empl,
-                                "middlename",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "td",
-                {
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      _vm.is_birthday_view = !_vm.is_birthday_view
-                    }
-                  }
-                },
-                [
-                  _vm.is_birthday_view
-                    ? [_vm._v(" " + _vm._s(_vm.empl.birthday))]
-                    : [
-                        _c("mydatepicker", {
-                          attrs: { ddate: _vm.empl.birthday },
-                          on: {
-                            changedate: _vm.changeBirthday,
-                            closedate: _vm.closeBirthday
-                          }
-                        })
-                      ]
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "td",
-                {
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      _vm.is_deathday_view = !_vm.is_deathday_view
-                    }
-                  }
-                },
-                [
-                  _vm.is_deathday_view
-                    ? [_vm._v(" " + _vm._s(_vm.empl.deathday))]
-                    : [
-                        _c("mydatepicker", {
-                          attrs: { ddate: _vm.empl.deathday },
-                          on: {
-                            changedate: _vm.changeDeathday,
-                            closedate: _vm.closeDeathday
-                          }
-                        })
-                      ]
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "td",
-                {
-                  on: {
-                    click: function($event) {
-                      if ($event.target !== $event.currentTarget) {
-                        return null
-                      }
-                      _vm.is_address_view = !_vm.is_address_view
-                      _vm.is_birthday_view = true
-                      _vm.is_deathday_view = true
-                    }
-                  }
-                },
-                [
-                  _vm.is_address_view
-                    ? [_vm._v(" " + _vm._s(_vm.empl.address) + " ")]
-                    : [
-                        _c("input", {
-                          directives: [
-                            { name: "focus", rawName: "v-focus" },
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.empl.address,
-                              expression: "empl.address"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          domProps: { value: _vm.empl.address },
-                          on: {
-                            blur: function($event) {
-                              _vm.is_address_view = true
-                            },
-                            keyup: function($event) {
-                              if (
-                                !("button" in $event) &&
-                                $event.keyCode !== 13
-                              ) {
-                                return null
-                              }
-                              _vm.is_address_view = true
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.empl, "address", $event.target.value)
-                            }
-                          }
-                        })
-                      ]
-                ],
-                2
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
+        _vm._l(_vm.empl.photo, function(photo) {
+          return [
+            _c(
+              "div",
+              {
+                staticClass: "modal fade",
+                attrs: { id: _vm.getphotoid(photo) }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal-dialog modal-dialog-centered",
+                    attrs: { role: "document" }
+                  },
+                  [_c("img", { attrs: { src: _vm.photo_url(photo) } })]
+                )
+              ]
+            )
+          ]
+        })
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = [

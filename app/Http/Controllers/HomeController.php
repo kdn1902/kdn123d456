@@ -37,6 +37,14 @@ class HomeController extends Controller
     public function getemployee($id) 
     {
     	$empl = \App\Employee::find($id);
+    	$small_photos = [];
+    	$photos = [];
+    	foreach ($empl->photos()->get() as $photo) {
+    		$small_photos[] = $photo->smallphoto_path;
+    		$photos[] = $photo->photo_path;
+		}
+		$empl['photo'] = $photos;
+		$empl['small_photo'] = $small_photos;
 		return view('employee',['empl' => $empl]);
 	}
 	

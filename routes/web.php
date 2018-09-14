@@ -22,3 +22,5 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/getemployees', 'HomeController@getemployees');
 Route::get('/getemployee/{id}', 'HomeController@getemployee');
 Route::post('/savemployee', 'HomeController@saveemployee');
+Route::post('/uploadfoto','AjaxController@uploadphoto');
+Route::post('/dropphoto','AjaxController@dropphoto');

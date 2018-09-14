@@ -3,27 +3,22 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                  		<div class="pull-right">
-                   			<button type="button" class="btn btn-primary btn-sm" @click.prevent="saveEmployee">Save change</button>
-                   		</div>
+                   			<button type="button" class="btn btn-primary" @click.prevent="saveEmployee">Save changes</button>
+                   			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   			<button type="button" class="btn btn-warning" @click.prevent="cancelEmployee">Cancel changes</button>
                 </div>
 
                 <div class="card-body">
 	
 	
 	            <div class="row">
-    			    	<div class="col-md-10 col-md-offset-1" v-if="status || err" >
-        					<div class="panel panel-default">        	
-               					<div class="panel-body" >
-                       				<p v-if="status" class="text-success">{{ status }}</p>
+                     				<p v-if="status" class="text-success">{{ status }}</p>
                        				<ul v-if="err">
                        						<li v-for="value in err"><p class="text-danger">{{ value[0] }}</p></li>	
                        				</ul>
-        	    				</div>
-        					</div>
-       					</div>
         		</div>
-
+				
+			<div class="row">	
               <table class="table table-bordered">
               <thead class="thead-light">
 						<th>Lastname</th><th>Firstname</th><th>Middlename</th><th>Birstday</th>
@@ -62,8 +57,39 @@
 					</td>
 				</tr>
 			</table>
+			</div>
+			
+			
+			<table>
+			<tr v-for="photo in empl.small_photo">
+			<td>
+					<a data-toggle="modal" :data-target="getsmallphotoid(photo)">
+				    <img :src="small_photo_url(photo)"></img></a>
+			</td>
+			<td>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" @click="dropPhoto(photo)">Delete photo</button>
+			</td>
+			</tr>
+			</table>
+			
+			<br />
+        	<div class="row">
+	    		        <form enctype="multipart/form-data">
+            				<input type="file" accept="image/*" name="image" @change="changePhoto" />
+            				<button type="button" class="btn btn-primary" @click="uploadPhoto">Upload photo</button>
+            				<br /><img :src="src"/>
+        				</form>
+	   		</div>
+			
                 </div>
             </div>
+       		<template v-for="photo in empl.photo">
+			<div :id="getphotoid(photo)" class="modal fade">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+						<img :src="photo_url(photo)"></img>
+				</div>
+			</div>
+			</template>
         </div>
     </div>
 </template>
@@ -73,7 +99,7 @@
     export default {
     	data(){
     		return {
-    			last_birthday:null,
+    			empl: {},
     			is_lastname_view: true,
     			is_firstname_view: true,
     			is_middlename_view: true,
@@ -81,14 +107,88 @@
     			is_deathday_view: true,
     			is_address_view: true,
     			err: null,
-    			status: null
+    			status: null,
+    			image: null,
+    			content: null
     		};
     	},
-    	props: ['empl'],
+    	props: ['employee'],
     	mounted() {
-    		this.last_birthday = this.empl.birthday;
+    			this.empl = JSON.parse(this.employee);
     	},
+    	computed: {
+  /*  		   	 has_photo(){
+			 	 	 return this.empl.small_photo == null ? false: true;
+	 			 },*/
+
+			 	 src() {
+			         	if (this.content) {
+            					return this.content;
+	     				}
+	 			 }
+		},
     	methods:{
+    			 getsmallphotoid(photo){
+						return "#" + photo.replace('employee_photo/small/', '').replace(/[^a-zA-Z]/g, '');
+				 },
+    			 getphotoid(photo){
+						return photo.replace('employee_photo/', '').replace(/[^a-zA-Z]/g, '');
+				 },
+    			 photo_url(photo){
+		 	 			return "/storage/" + photo;
+				 },
+    		     small_photo_url(photo)
+    		     {
+					     return "/storage/" + photo;
+	 			 },
+    		   	 dropPhoto(photo)
+    		   	 {
+				   	 	if (confirm("Do you want to delete the photo?"))
+   	 					{
+   		 					axios.post('/dropphoto', {
+   	 							smallphoto:photo
+   	 						})
+							.then(response => {
+								this.empl.photo.splice(this.empl.photo.indexOf(response.data.photo), 1);
+								this.empl.small_photo.splice(this.empl.small_photo.indexOf(response.data.small_photo), 1);
+        					})
+        					.catch(error => {
+        	    				console.log(error);
+        					})
+				    	}	
+	 			},
+
+    		  changePhoto(e) 
+    		  {
+					 	e.preventDefault();
+        				this.image = e.target.files[0];
+        				let reader = new FileReader();
+        				reader.onload = this.onImageLoad;
+        				reader.readAsDataURL(this.image);
+	 		  },
+	 		  onImageLoad(e)
+	 		  {
+        	 			this.content = e.target.result;
+     		  },
+   	 		  uploadPhoto()
+   	 		  {
+   	 					let data = new FormData();
+						data.append('image', this.image);
+						data.append('id', this.empl.id);
+						axios.post('/uploadfoto', data)
+						.then(response => {
+								this.empl.photo.push(response.data.photo);
+								this.empl.small_photo.push(response.data.small_photo);
+        				})
+        				.catch(error => {
+        	    				console.log(error);
+        				})
+	 		  },
+
+    		 cancelEmployee()
+    		 {
+    		 	this.empl = JSON.parse(this.employee);
+			 },
     		 saveEmployee()
     		 {
      		 	axios.post('/savemployee', {
@@ -119,7 +219,7 @@
 					}
    	 				else
    	 				{
-						this.empl.birthday = this.last_birthday;
+						this.empl.birthday = this.employee.birthday;
 					}
    	 				
    	 		 },
