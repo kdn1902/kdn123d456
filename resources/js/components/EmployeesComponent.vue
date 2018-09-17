@@ -48,7 +48,6 @@
         	};
 		},
         mounted() {
-          //  console.log('Component mounted.')
         },
         methods:{
 			getdate(ddate)

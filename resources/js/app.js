@@ -18,6 +18,7 @@ import axios from 'axios';
 
 Vue.component('employees-component', require('./components/EmployeesComponent.vue'));
 Vue.component('employee-component', require('./components/EmployeeComponent.vue'));
+Vue.component('newemployee-component', require('./components/NewEmployeeComponent.vue'));
 Vue.component('mydatepicker', require('./components/MyDatepicker.vue'));
 
 Vue.directive('focus', {

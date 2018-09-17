@@ -82,6 +82,11 @@ class HomeController extends Controller
 		$request->session()->flash('status', 'Record successfully deleted!');
 		return response()->json(["redirect"=>url('home')]);
 	}
+	
+	public function newemployee()
+	{
+		return view('newemployee');
+	}
 }
 
 
