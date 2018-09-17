@@ -6,17 +6,20 @@
                    			<button type="button" class="btn btn-primary" @click.prevent="saveEmployee">Save changes</button>
                    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    			<button type="button" class="btn btn-warning" @click.prevent="cancelEmployee">Cancel changes</button>
+                   			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   			<button type="button" class="btn btn-danger" @click.prevent="dropEmployee">Drop employee</button>
                 </div>
 
                 <div class="card-body">
-	
-	
-	            <div class="row">
-                     				<p v-if="status" class="text-success">{{ status }}</p>
-                       				<ul v-if="err">
-                       						<li v-for="value in err"><p class="text-danger">{{ value[0] }}</p></li>	
-                       				</ul>
-        		</div>
+                
+   					<div v-if="status" class="row alert alert-success" role="alert">
+             					{{ status }}
+					</div>
+   				   <template v-if="err">
+						<div v-for="value in err" class="row alert alert-danger" role="alert">
+							{{ value[0] }}
+						</div>
+      			   </template>
 				
 			<div class="row">	
               <table class="table table-bordered">
@@ -209,7 +212,21 @@
         		this.status = null;
         	    this.err = error.response.data.errors;
         	})
-
+			 },
+    		dropEmployee()
+    		{
+     		 	axios.post('/dropemployee', {
+		                id: this.empl.id
+        		}
+        	)
+        	.then(response => {
+        		this.err = null;
+        		window.location.replace(response.data.redirect);
+        	})
+        	.catch(error => {
+        		this.status = null;
+        	    this.err = error.response.data.errors;
+        	})
 			 },
     	  	 changeBirthday(newdata)
     	  	 {

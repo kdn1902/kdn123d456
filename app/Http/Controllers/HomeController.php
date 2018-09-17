@@ -66,6 +66,22 @@ class HomeController extends Controller
     			$employee->save();
     		   	return response()->json(["status" => "Data saved successfully"]);
 	}
+	
+	public function dropemployee(Request $request)
+	{
+		$employee = \App\Employee::find($request->id);
+		$photos = $employee->photos()->get();
+		$employee->photos()->delete();
+		$employee->delete();
+		
+		foreach ($photos as $photo)
+		{
+			unlink(storage_path() . "/app/public/" . $photo->photo_path);
+			unlink(storage_path() . "/app/public/" . $photo->smallphoto_path);
+		}
+		$request->session()->flash('status', 'Record successfully deleted!');
+		return response()->json(["redirect"=>url('home')]);
+	}
 }
 
 
