@@ -236,7 +236,7 @@
 					}
    	 				else
    	 				{
-						this.empl.birthday = this.employee.birthday;
+						this.empl.birthday = JSON.parse(this.employee).birthday;
 					}
    	 				
    	 		 },
