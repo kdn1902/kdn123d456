@@ -12,7 +12,7 @@
 	   						</template>
                				<template slot="actions" slot-scope="props">
     							<div>
-      								<a :href=getemployee(props.row.id) class="btn btn-primary" role="button">View</a>
+      								<a :href=getemployee(props.row.id) class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="left" title="View, Edit, Delete this Employee">View</a>
     							</div>
 	   						</template>
 

@@ -7,6 +7,10 @@
 
 require('./bootstrap');
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 window.Vue = require('vue');
 
 /**

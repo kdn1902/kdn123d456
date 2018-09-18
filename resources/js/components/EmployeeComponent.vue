@@ -15,11 +15,10 @@
    					<div v-if="status" class="row alert alert-success" role="alert">
              					{{ status }}
 					</div>
-   				   <template v-if="err">
-						<div v-for="value in err" class="row alert alert-danger" role="alert">
-							{{ value[0] }}
-						</div>
-      			   </template>
+      			   
+      			    <ul class="list-group" v-if="err">
+      			   		<li v-for="value in err" class="list-group-item list-group-item-danger">{{ value[0] }}</li>
+      			    </ul><br />
 				
 			<div class="row">	
               <table class="table table-bordered">
@@ -70,7 +69,7 @@
 				    <img :src="small_photo_url(photo)"></img></a>
 			</td>
 			<td>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" @click="dropPhoto(photo)">Delete photo</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" @click="dropPhoto(photo)" data-toggle="tooltip" data-placement="right" title="Press this button to delete this photo from server">Delete photo</button>
 			</td>
 			</tr>
 			</table>
@@ -79,7 +78,7 @@
         	<div class="row">
 	    		        <form enctype="multipart/form-data">
             				<input type="file" accept="image/*" name="image" @change="changePhoto" />
-            				<button type="button" class="btn btn-primary" @click="uploadPhoto">Upload photo</button>
+            				<button type="button" class="btn btn-primary" @click="uploadPhoto" data-toggle="tooltip" data-placement="right" title="Press this button to upload this photo to server">Upload photo</button>
             				<br /><img :src="src"/>
         				</form>
 	   		</div>
@@ -215,18 +214,21 @@
 			 },
     		dropEmployee()
     		{
-     		 	axios.post('/dropemployee', {
-		                id: this.empl.id
-        		}
-        	)
-        	.then(response => {
-        		this.err = null;
-        		window.location.replace(response.data.redirect);
-        	})
-        	.catch(error => {
-        		this.status = null;
-        	    this.err = error.response.data.errors;
-        	})
+    			if (confirm("Do you want to delete this employee?"))
+    			{
+	     		 	axios.post('/dropemployee', {
+			                id: this.empl.id
+	        		}
+	        		)
+	        		.then(response => {
+	        		this.err = null;
+	        		window.location.replace(response.data.redirect);
+	        		})
+	        		.catch(error => {
+	        			this.status = null;
+	        	    	this.err = error.response.data.errors;
+	        		})
+				}        		
 			 },
     	  	 changeBirthday(newdata)
     	  	 {
