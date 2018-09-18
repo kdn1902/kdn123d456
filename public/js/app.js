@@ -51039,6 +51039,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -51054,7 +51060,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       err: null,
       status: null,
       image: null,
-      content: null
+      content: null,
+      uploadPhotoButtonStatus: false
     };
   },
 
@@ -51110,6 +51117,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     onImageLoad: function onImageLoad(e) {
       this.content = e.target.result;
+      this.uploadPhotoButtonStatus = true;
     },
     uploadPhoto: function uploadPhoto() {
       var _this2 = this;
@@ -51631,32 +51639,44 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("form", { attrs: { enctype: "multipart/form-data" } }, [
-                _c("input", {
-                  attrs: { type: "file", accept: "image/*", name: "image" },
-                  on: { change: _vm.changePhoto }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "tooltip",
-                      "data-placement": "right",
-                      title: "Press this button to upload this photo to server"
-                    },
-                    on: { click: _vm.uploadPhoto }
-                  },
-                  [_vm._v("Upload photo")]
-                ),
-                _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+              [
+                _vm._m(1),
                 _c("br"),
-                _c("img", { attrs: { src: _vm.src } })
-              ])
-            ])
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+                    _c("input", {
+                      attrs: { type: "file", accept: "image/*", name: "image" },
+                      on: { change: _vm.changePhoto }
+                    }),
+                    _vm._v(" "),
+                    _vm.uploadPhotoButtonStatus
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "button",
+                              "data-toggle": "tooltip",
+                              "data-placement": "right",
+                              title:
+                                "Press this button to upload this photo to server"
+                            },
+                            on: { click: _vm.uploadPhoto }
+                          },
+                          [_vm._v("Upload photo")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br"),
+                    _c("img", { attrs: { src: _vm.src } })
+                  ])
+                ])
+              ]
+            )
           ])
         ]),
         _vm._v(" "),
@@ -51687,13 +51707,63 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
-      _c("th", [_vm._v("Lastname")]),
-      _c("th", [_vm._v("Firstname")]),
-      _c("th", [_vm._v("Middlename")]),
-      _c("th", [_vm._v("Birstday")]),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-secondary" }, [
+            _vm._v("Lastname")
+          ])
+        ])
+      ]),
       _vm._v(" "),
-      _c("th", [_vm._v("Deathday")]),
-      _c("th", [_vm._v("Address")])
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-secondary" }, [
+            _vm._v("Firstname")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-secondary" }, [
+            _vm._v("Middlename")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-secondary" }, [
+            _vm._v("Birstday")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-secondary" }, [
+            _vm._v("Deathday")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-secondary" }, [
+            _vm._v("Address")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h1", [
+      _c("span", { staticClass: "badge badge-pill badge-primary" }, [
+        _vm._v("Upload photos:")
+      ])
     ])
   }
 ]

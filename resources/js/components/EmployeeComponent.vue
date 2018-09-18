@@ -23,8 +23,12 @@
 			<div class="row">	
               <table class="table table-bordered">
               <thead class="thead-light">
-						<th>Lastname</th><th>Firstname</th><th>Middlename</th><th>Birstday</th>
-						<th>Deathday</th><th>Address</th>
+						<th><h4><span class="badge badge-secondary">Lastname</span></h4></th>
+						<th><h4><span class="badge badge-secondary">Firstname</span></h4></th>
+						<th><h4><span class="badge badge-secondary">Middlename</span></h4></th>
+						<th><h4><span class="badge badge-secondary">Birstday</span></h4></th>
+						<th><h4><span class="badge badge-secondary">Deathday</span></h4></th>
+						<th><h4><span class="badge badge-secondary">Address</span></h4></th>
 			  </thead>
 			  <tr class="table-info">
 					<td @click.self = "is_lastname_view = ! is_lastname_view;  is_birthday_view = true; is_deathday_view = true">
@@ -75,15 +79,17 @@
 			</table>
 			
 			<br />
-        	<div class="row">
-	    		        <form enctype="multipart/form-data">
+			<div class="alert alert-primary" role="alert">
+	  			<h1><span class="badge badge-pill badge-primary">Upload photos:</span></h1><br />
+  				<div class="row">
+        		        <form enctype="multipart/form-data">
             				<input type="file" accept="image/*" name="image" @change="changePhoto" />
-            				<button type="button" class="btn btn-primary" @click="uploadPhoto" data-toggle="tooltip" data-placement="right" title="Press this button to upload this photo to server">Upload photo</button>
+            				<button type="button" class="btn btn-primary" @click="uploadPhoto" data-toggle="tooltip" data-placement="right" title="Press this button to upload this photo to server" v-if="uploadPhotoButtonStatus" >Upload photo</button>
             				<br /><img :src="src"/>
         				</form>
-	   		</div>
-			
-                </div>
+	   			</div>
+			</div>
+            </div>
             </div>
        		<template v-for="photo in empl.photo">
 			<div :id="getphotoid(photo)" class="modal fade">
@@ -111,7 +117,8 @@
     			err: null,
     			status: null,
     			image: null,
-    			content: null
+    			content: null,
+    			uploadPhotoButtonStatus: false
     		};
     	},
     	props: ['employee'],
@@ -171,6 +178,7 @@
 	 		  onImageLoad(e)
 	 		  {
         	 			this.content = e.target.result;
+        	 			this.uploadPhotoButtonStatus = true;
      		  },
    	 		  uploadPhoto()
    	 		  {
