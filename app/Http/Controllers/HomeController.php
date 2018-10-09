@@ -55,8 +55,7 @@ class HomeController extends Controller
     			'firstname' => 'required|alpha',
     			'middlename' => 'required|alpha',
     			'birthday' => 'required']);
- 			
-    			$employee = \App\Employee::find($request->id);
+     			$employee = \App\Employee::find($request->id);
     			$employee->lastname = $request->lastname;
     			$employee->firstname = $request->firstname;
     			$employee->middlename = $request->middlename;
@@ -87,6 +86,25 @@ class HomeController extends Controller
 	{
 		return view('newemployee');
 	}
+
+	public function createemployee(Request $request)
+	{
+    	$this->validate($request,
+    	 		['lastname' => 'required|alpha',
+    			'firstname' => 'required|alpha',
+    			'middlename' => 'required|alpha',
+    			'birthday' => 'required']);
+    	$employee = new \App\Employee;
+    	$employee->lastname = $request->lastname;
+    	$employee->firstname = $request->firstname;
+    	$employee->middlename = $request->middlename;
+    	$employee->birthday = $request->birthday;
+    	$employee->deathday = $request->deathday;
+    	$employee->address = $request->address;
+    	$employee->save();
+    	return response()->json(["redirect" => url('getemployee', [ $employee->id ])]);
+	}
+	
 }
 
 

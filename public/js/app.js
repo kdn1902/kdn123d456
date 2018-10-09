@@ -51709,15 +51709,13 @@ var staticRenderFns = [
     return _c("thead", { staticClass: "thead-light" }, [
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-secondary" }, [
-            _vm._v("Lastname")
-          ])
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Lastname")])
         ])
       ]),
       _vm._v(" "),
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-secondary" }, [
+          _c("span", { staticClass: "badge badge-light" }, [
             _vm._v("Firstname")
           ])
         ])
@@ -51725,7 +51723,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-secondary" }, [
+          _c("span", { staticClass: "badge badge-light" }, [
             _vm._v("Middlename")
           ])
         ])
@@ -51733,25 +51731,19 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-secondary" }, [
-            _vm._v("Birstday")
-          ])
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Birstday")])
         ])
       ]),
       _vm._v(" "),
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-secondary" }, [
-            _vm._v("Deathday")
-          ])
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Deathday")])
         ])
       ]),
       _vm._v(" "),
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-secondary" }, [
-            _vm._v("Address")
-          ])
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Address")])
         ])
       ])
     ])
@@ -51878,18 +51870,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			err: null
+  data: function data() {
+    return {
+      empl: {},
+      err: null,
+      status: null
+    };
+  },
 
-		};
-	},
+  methods: {
+    saveEmployee: function saveEmployee() {
+      var _this = this;
 
-	methods: {
-		createEmployee: function createEmployee() {}
-	}
+      axios.post('/newemployee', {
+        lastname: this.empl.lastname,
+        firstname: this.empl.firstname,
+        middlename: this.empl.middlename,
+        birthday: this.empl.birthday,
+        deathday: this.empl.deathday,
+        address: this.empl.address
+      }).then(function (response) {
+        _this.err = null;
+        window.location.replace(response.data.redirect);
+      }).catch(function (error) {
+        _this.status = null;
+        _this.err = error.response.data.errors;
+      });
+    },
+    changeBirthday: function changeBirthday(newdata) {
+      this.empl.birthday = newdata;
+    },
+    changeDeathday: function changeDeathday(newdata) {
+      this.empl.deathday = newdata;
+    }
+  }
 });
 
 /***/ }),
@@ -51912,43 +51936,167 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  return _vm.createEmployee($event)
+                  return _vm.saveEmployee($event)
                 }
               }
             },
-            [_vm._v("Create Employee")]
+            [_vm._v("Save changes")]
           )
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _vm.err
-              ? _vm._l(_vm.err, function(value) {
+        _c("div", { staticClass: "card-body" }, [
+          _vm.status
+            ? _c(
+                "div",
+                {
+                  staticClass: "row alert alert-success",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._v(
+                    "\n             \t\t\t\t\t" +
+                      _vm._s(_vm.status) +
+                      "\n\t\t\t\t\t"
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.err
+            ? _c(
+                "ul",
+                { staticClass: "list-group" },
+                _vm._l(_vm.err, function(value) {
                   return _c(
-                    "div",
-                    {
-                      staticClass: "row alert alert-danger",
-                      attrs: { role: "alert" }
-                    },
-                    [
-                      _vm._v(
-                        "\n\t\t\t\t\t\t\t" + _vm._s(value[0]) + "\n\t\t\t\t\t\t"
-                      )
-                    ]
+                    "li",
+                    { staticClass: "list-group-item list-group-item-danger" },
+                    [_vm._v(_vm._s(value[0]))]
                   )
                 })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("h1", [
-              _vm._v("\n      \t\t\t   Hello, world!!!\t\n      \t\t\t   ")
-            ]),
-            _vm._v(" "),
-            _vm._m(0)
-          ],
-          2
-        )
+              )
+            : _vm._e(),
+          _c("br"),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("table", { staticClass: "table table-bordered" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("tr", { staticClass: "table-info" }, [
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.empl.lastname,
+                        expression: "empl.lastname"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.empl.lastname },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.empl, "lastname", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.empl.firstname,
+                        expression: "empl.firstname"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.empl.firstname },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.empl, "firstname", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.empl.middlename,
+                        expression: "empl.middlename"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.empl.middlename },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.empl, "middlename", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  [
+                    _c("mydatepicker", {
+                      on: { changedate: _vm.changeBirthday }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  [
+                    _c("mydatepicker", {
+                      on: { changedate: _vm.changeDeathday }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.empl.address,
+                        expression: "empl.address"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.empl.address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.empl, "address", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -51958,113 +52106,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "carousel slide",
-        attrs: { id: "carouselExampleControls", "data-ride": "carousel" }
-      },
-      [
-        _c("ol", { staticClass: "carousel-indicators" }, [
-          _c("li", {
-            staticClass: "active",
-            attrs: {
-              "data-target": "#carouselExampleControls",
-              "data-slide-to": "0"
-            }
-          }),
-          _vm._v(" "),
-          _c("li", {
-            attrs: {
-              "data-target": "#carouselExampleControls",
-              "data-slide-to": "1"
-            }
-          }),
-          _vm._v(" "),
-          _c("li", {
-            attrs: {
-              "data-target": "#carouselExampleControls",
-              "data-slide-to": "2"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "carousel-inner" }, [
-          _c("div", { staticClass: "carousel-item active" }, [
-            _c("img", {
-              staticClass: "d-block w-100",
-              attrs: {
-                src:
-                  "https://natworld.info/wp-content/uploads/2018/01/%D0%A1%D0%BE%D1%87%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BD%D0%B0-%D1%82%D0%B5%D0%BC%D1%83-%D0%9F%D1%80%D0%B8%D1%80%D0%BE%D0%B4%D0%B0.jpeg",
-                alt: "First slide"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "carousel-item" }, [
-            _c("img", {
-              staticClass: "d-block w-100",
-              attrs: {
-                src:
-                  "https://ruslo.info/wp-content/uploads/2018/05/priroda-turtsii-gora.jpg",
-                alt: "Second slide"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "carousel-item" }, [
-            _c("img", {
-              staticClass: "d-block w-100",
-              attrs: {
-                src:
-                  "https://ruslo.info/wp-content/uploads/2018/05/priroda-turtsii-gory.jpg",
-                alt: "Third slide"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "carousel-control-prev",
-            attrs: {
-              href: "#carouselExampleControls",
-              role: "button",
-              "data-slide": "prev"
-            }
-          },
-          [
-            _c("span", {
-              staticClass: "carousel-control-prev-icon",
-              attrs: { "aria-hidden": "true" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "carousel-control-next",
-            attrs: {
-              href: "#carouselExampleControls",
-              role: "button",
-              "data-slide": "next"
-            }
-          },
-          [
-            _c("span", {
-              staticClass: "carousel-control-next-icon",
-              attrs: { "aria-hidden": "true" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Next")])
-          ]
-        )
-      ]
-    )
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("th", [_c("h4", [_vm._v("Lastname")])]),
+      _vm._v(" "),
+      _c("th", [_c("h4", [_vm._v("Firstname")])]),
+      _vm._v(" "),
+      _c("th", [_c("h4", [_vm._v("Middlename")])]),
+      _vm._v(" "),
+      _c("th", [_c("h4", [_vm._v("Birstday")])]),
+      _vm._v(" "),
+      _c("th", [_c("h4", [_vm._v("Deathday")])]),
+      _vm._v(" "),
+      _c("th", [_c("h4", [_vm._v("Address")])])
+    ])
   }
 ]
 render._withStripped = true
