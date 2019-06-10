@@ -22,27 +22,27 @@
 <script>
     export default {
     	data(){
-			return{
+			return {
 		 	     columns: ['lastname', 'firstname', 'middlename','birthday','deathday', 'address', 'actions'],
         		 options: {
         				params: {
 							datefields: ['birthday','deathday']
 				 		},
-        				headings:{ 
-            						lastname: 'Lastname',
+        				headings:{
+            						lastname: 'Фамилия',
 					              	firstname: 'Firstname',
 					              	middlename: 'Middlename',
 					              	birthday: 'Birthday',
 					              	deathday: 'Deathday',
-									address: 'Address'
-						            },
-						requestFunction(data) 
+						        address: 'Адрес'
+						},
+						requestFunction(data)
 						{
-										return axios.get(this.url, {
-											params: data
-										}).catch(function (e){
-											this.dispatch('error', e);
-										}.bind(this));
+								return axios.get(this.url, {
+									    params: data
+									}).catch(function (e){
+										this.dispatch('error', e);
+									}.bind(this));
 						}
         		}
         	};
@@ -55,14 +55,17 @@
 				if (ddate != null)
 				{
 					var d = new Date(ddate);
-					return d.toLocaleFormat('%d %b %Y')
+					var options = { year: 'numeric',  month: 'long', day: 'numeric' };
+					var dateFormatter = new Intl.DateTimeFormat('ru-RU', options);
+					return dateFormatter.format(d)
+					// return d.toLocaleFormat('%d %b %Y')
 				}
 				else
 				{
 					return null;
 				}
 			},
-			getemployee: function(id)
+			getemployee(id)
 			{
 				return "/getemployee/" + id;
 			},

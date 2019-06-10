@@ -47,13 +47,13 @@
             			</template>
 					</td>
 					<td @click.self = "is_birthday_view = ! is_birthday_view">
-						<template v-if="is_birthday_view"> {{ empl.birthday }}</template>
+						<template v-if="is_birthday_view"> {{ printdate(empl.birthday) }}</template>
 						<template v-else><mydatepicker :ddate="empl.birthday" @changedate="changeBirthday" @closedate="closeBirthday"></mydatepicker>
 						</template>
 					</td>
 					<td @click.self = "is_deathday_view = ! is_deathday_view">
-						<template v-if="is_deathday_view"> {{ empl.deathday }}</template>
-						<template v-else><mydatepicker :ddate="empl.deathday" @changedate="changeDeathday" @closedate="closeDeathday"></mydatepicker>					
+						<template v-if="is_deathday_view"> {{ printdate(empl.deathday) }}</template>
+						<template v-else><mydatepicker :ddate="empl.deathday" @changedate="changeDeathday" @closedate="closeDeathday"></mydatepicker>
 						</template>
 					</td>
 					<td @click.self = "is_address_view = ! is_address_view;  is_birthday_view = true; is_deathday_view = true">
@@ -126,32 +126,40 @@
     			this.empl = JSON.parse(this.employee);
     	},
     	computed: {
-  /*  		   	 has_photo(){
+		  /*	has_photo(){
 			 	 	 return this.empl.small_photo == null ? false: true;
 	 			 },*/
-
-			 	 src() {
-			         	if (this.content) {
+			src() {
+			     	if (this.content) {
             					return this.content;
-	     				}
-	 			 }
+	     			}
+	 		}
 		},
     	methods:{
-    			 getsmallphotoid(photo){
-						return "#" + photo.replace('employee_photo/small/', '').replace(/[^a-zA-Z]/g, '');
-				 },
-    			 getphotoid(photo){
-						return photo.replace('employee_photo/', '').replace(/[^a-zA-Z]/g, '');
-				 },
-    			 photo_url(photo){
-		 	 			return "/storage/" + photo;
-				 },
-    		     small_photo_url(photo)
-    		     {
-					     return "/storage/" + photo;
-	 			 },
-    		   	 dropPhoto(photo)
-    		   	 {
+			printdate(ddate)
+			{
+                            if(ddate != null)
+			    {
+				    var d = new Date(ddate);
+				    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+				    var dateFormatter = new Intl.DateTimeFormat('ru-RU', options);
+				    return dateFormatter.format(d);
+			    }
+			},
+    			getsmallphotoid(photo){
+				return "#" + photo.replace('employee_photo/small/', '').replace(/[^a-zA-Z]/g, '');
+			},
+    			getphotoid(photo){
+				return photo.replace('employee_photo/', '').replace(/[^a-zA-Z]/g, '');
+			},
+    			photo_url(photo){
+		 		return "/storage/" + photo;
+			},
+	    		small_photo_url(photo){
+				return "/storage/" + photo;
+	 		},
+    		   	dropPhoto(photo)
+    		   	{
 				   	 	if (confirm("Do you want to delete the photo?"))
    	 					{
    		 					axios.post('/dropphoto', {
@@ -162,38 +170,38 @@
 								this.empl.small_photo.splice(this.empl.small_photo.indexOf(response.data.small_photo), 1);
         					})
         					.catch(error => {
-        	    				console.log(error);
+        	    					console.log(error);
         					})
-				    	}	
-	 			},
+				    		}
+	 		},
 
     		  changePhoto(e) 
     		  {
-					 	e.preventDefault();
+					e.preventDefault();
         				this.image = e.target.files[0];
         				let reader = new FileReader();
         				reader.onload = this.onImageLoad;
         				reader.readAsDataURL(this.image);
 	 		  },
-	 		  onImageLoad(e)
-	 		  {
+ 		  onImageLoad(e)
+ 		  {
         	 			this.content = e.target.result;
         	 			this.uploadPhotoButtonStatus = true;
      		  },
-   	 		  uploadPhoto()
-   	 		  {
-   	 					let data = new FormData();
-						data.append('image', this.image);
-						data.append('id', this.empl.id);
-						axios.post('/uploadfoto', data)
-						.then(response => {
-								this.empl.photo.push(response.data.photo);
-								this.empl.small_photo.push(response.data.small_photo);
+ 		  uploadPhoto()
+ 		  {
+ 					let data = new FormData();
+					data.append('image', this.image);
+					data.append('id', this.empl.id);
+					axios.post('/uploadfoto', data)
+					.then(response => {
+    							this.empl.photo.push(response.data.photo);
+							this.empl.small_photo.push(response.data.small_photo);
         				})
         				.catch(error => {
         	    				console.log(error);
         				})
-	 		  },
+ 		  },
 
     		 cancelEmployee()
     		 {
@@ -238,8 +246,8 @@
 	        		})
 				}        		
 			 },
-    	  	 changeBirthday(newdata)
-    	  	 {
+    	  	changeBirthday(newdata)
+    	  	{
     	  	    	if(newdata != null)
     	  	    	{
 						this.empl.birthday = newdata;
@@ -250,18 +258,18 @@
 					}
    	 				
    	 		 },
-   	 		 closeBirthday()
-   	 		 {
+   	 	closeBirthday()
+   	 	{
   				 	this.is_birthday_view = true;
-			 },
-			 changeDeathday(newdata)
-    	  	 {
+		},
+		changeDeathday(newdata)
+    	  	{
    	 				this.empl.deathday = newdata;
-   	 		 },
-   	 		 closeDeathday()
-   	 		 {
+   	 	},
+   	 	closeDeathday()
+   	 	{
 				 	this.is_deathday_view = true;
-			 }
+		}
     	}
     }
     
