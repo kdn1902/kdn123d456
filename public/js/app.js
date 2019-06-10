@@ -2378,10 +2378,10 @@ __webpack_require__.r(__webpack_exports__);
         },
         headings: {
           lastname: 'Фамилия',
-          firstname: 'Firstname',
-          middlename: 'Middlename',
-          birthday: 'Birthday',
-          deathday: 'Deathday',
+          firstname: 'Имя',
+          middlename: 'Отчество',
+          birthday: 'День рождения',
+          deathday: 'День смерти',
           address: 'Адрес'
         },
         requestFunction: function requestFunction(data) {
@@ -45437,14 +45437,26 @@ var staticRenderFns = [
     return _c("thead", { staticClass: "thead-light" }, [
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Lastname")])
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Фамилия")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Имя")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _c("h4", [
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Отчество")])
         ])
       ]),
       _vm._v(" "),
       _c("th", [
         _c("h4", [
           _c("span", { staticClass: "badge badge-light" }, [
-            _vm._v("Firstname")
+            _vm._v("День рождения")
           ])
         ])
       ]),
@@ -45452,26 +45464,14 @@ var staticRenderFns = [
       _c("th", [
         _c("h4", [
           _c("span", { staticClass: "badge badge-light" }, [
-            _vm._v("Middlename")
+            _vm._v("День смерти")
           ])
         ])
       ]),
       _vm._v(" "),
       _c("th", [
         _c("h4", [
-          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Birstday")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("th", [
-        _c("h4", [
-          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Deathday")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("th", [
-        _c("h4", [
-          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Address")])
+          _c("span", { staticClass: "badge badge-light" }, [_vm._v("Адрес")])
         ])
       ])
     ])

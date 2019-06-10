@@ -23,12 +23,12 @@
 			<div class="row">	
               <table class="table table-bordered">
               <thead class="thead-light">
-						<th><h4><span class="badge badge-light">Lastname</span></h4></th>
-						<th><h4><span class="badge badge-light">Firstname</span></h4></th>
-						<th><h4><span class="badge badge-light">Middlename</span></h4></th>
-						<th><h4><span class="badge badge-light">Birstday</span></h4></th>
-						<th><h4><span class="badge badge-light">Deathday</span></h4></th>
-						<th><h4><span class="badge badge-light">Address</span></h4></th>
+						<th><h4><span class="badge badge-light">Фамилия</span></h4></th>
+						<th><h4><span class="badge badge-light">Имя</span></h4></th>
+						<th><h4><span class="badge badge-light">Отчество</span></h4></th>
+						<th><h4><span class="badge badge-light">День рождения</span></h4></th>
+						<th><h4><span class="badge badge-light">День смерти</span></h4></th>
+						<th><h4><span class="badge badge-light">Адрес</span></h4></th>
 			  </thead>
 			  <tr class="table-info">
 					<td @click.self = "is_lastname_view = ! is_lastname_view;  is_birthday_view = true; is_deathday_view = true">

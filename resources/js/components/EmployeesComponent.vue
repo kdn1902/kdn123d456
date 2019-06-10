@@ -30,10 +30,10 @@
 				 		},
         				headings:{
             						lastname: 'Фамилия',
-					              	firstname: 'Firstname',
-					              	middlename: 'Middlename',
-					              	birthday: 'Birthday',
-					              	deathday: 'Deathday',
+					              	firstname: 'Имя',
+					              	middlename: 'Отчество',
+					              	birthday: 'День рождения',
+					              	deathday: 'День смерти',
 						        address: 'Адрес'
 						},
 						requestFunction(data)
