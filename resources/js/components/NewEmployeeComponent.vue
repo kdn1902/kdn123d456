@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                   			<button type="button" class="btn btn-primary" @click.prevent="saveEmployee">Save changes</button>
+                   			<button type="button" class="btn btn-primary" @click.prevent="saveEmployee">Сохранить изменения</button>
                 </div>
 
                 <div class="card-body">
@@ -19,12 +19,12 @@
 			<div class="row">	
               <table class="table table-bordered">
               <thead class="thead-light">
-						<th><h4>Lastname</h4></th>
-						<th><h4>Firstname</h4></th>
-						<th><h4>Middlename</h4></th>
-						<th><h4>Birstday</h4></th>
-						<th><h4>Deathday</h4></th>
-						<th><h4>Address</h4></th>
+						<th><h4>Фамилия</h4></th>
+						<th><h4>Имя</h4></th>
+						<th><h4>Отчество</h4></th>
+						<th><h4>Дата рождения</h4></th>
+						<th><h4>Дата смерти</h4></th>
+						<th><h4>Адрес</h4></th>
 			  </thead>
 			  <tr class="table-info">
 					<td>
@@ -87,12 +87,12 @@
 			},
     	  	changeBirthday(newdata)
     	  	{
-				this.empl.birthday = newdata;
-   	 		},
+			this.empl.birthday = newdata;
+ 		},
 			changeDeathday(newdata)
     	  	{
- 				this.empl.deathday = newdata;
-   	 		}
+			this.empl.deathday = newdata;
+ 		}
     	}
     }
     

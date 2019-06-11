@@ -3,11 +3,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                   			<button type="button" class="btn btn-primary" @click.prevent="saveEmployee">Save changes</button>
+                   			<button type="button" class="btn btn-primary" @click.prevent="saveEmployee">Сохранить изменения</button>
                    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   			<button type="button" class="btn btn-warning" @click.prevent="cancelEmployee">Cancel changes</button>
+                   			<button type="button" class="btn btn-warning" @click.prevent="cancelEmployee">Отменить изменения</button>
                    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   			<button type="button" class="btn btn-danger" @click.prevent="dropEmployee">Drop employee</button>
+                   			<button type="button" class="btn btn-danger" @click.prevent="dropEmployee">Удалить клиента</button>
                 </div>
 
                 <div class="card-body">
@@ -73,18 +73,18 @@
 				    <img :src="small_photo_url(photo)"></img></a>
 			</td>
 			<td>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" @click="dropPhoto(photo)" data-toggle="tooltip" data-placement="right" title="Press this button to delete this photo from server">Delete photo</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm" @click="dropPhoto(photo)" data-toggle="tooltip" data-placement="right" title="Press this button to delete this photo from server">Удалить фото</button>
 			</td>
 			</tr>
 			</table>
 			
 			<br />
 			<div class="alert alert-primary" role="alert">
-	  			<h1><span class="badge badge-pill badge-primary">Upload photos:</span></h1><br />
+	  			<h1><span class="badge badge-pill badge-primary">Загрузить фото:</span></h1><br />
   				<div class="row">
         		        <form enctype="multipart/form-data">
             				<input type="file" accept="image/*" name="image" @change="changePhoto" />
-            				<button type="button" class="btn btn-primary" @click="uploadPhoto" data-toggle="tooltip" data-placement="right" title="Press this button to upload this photo to server" v-if="uploadPhotoButtonStatus" >Upload photo</button>
+            				<button type="button" class="btn btn-primary" @click="uploadPhoto" data-toggle="tooltip" data-placement="right" title="Press this button to upload this photo to server" v-if="uploadPhotoButtonStatus" >Загрузить фото</button>
             				<br /><img :src="src"/>
         				</form>
 	   			</div>

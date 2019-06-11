@@ -2367,7 +2367,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2382,7 +2381,8 @@ __webpack_require__.r(__webpack_exports__);
           middlename: 'Отчество',
           birthday: 'День рождения',
           deathday: 'День смерти',
-          address: 'Адрес'
+          address: 'Адрес',
+          actions: ''
         },
         requestFunction: function requestFunction(data) {
           return axios.get(this.url, {
@@ -2390,6 +2390,20 @@ __webpack_require__.r(__webpack_exports__);
           })["catch"](function (e) {
             this.dispatch('error', e);
           }.bind(this));
+        },
+        texts: {
+          filter: "Поиск:",
+          filterPlaceholder: "Введите строку",
+          limit: "Записей:",
+          noResults: "Ничего не найдено",
+          count: "Показано с {from} до  {to} из {count} записей|{count} записей|Одна запись",
+          first: 'Первая',
+          last: 'Последняя',
+          page: "Страница:",
+          filterBy: "Отсортировано по {column}",
+          loading: 'Загрузка...',
+          defaultOption: 'Select {column}',
+          columns: 'Столбцы'
         }
       }
     };
@@ -44933,7 +44947,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Save changes")]
+              [_vm._v("Сохранить изменения")]
             ),
             _vm._v(
               "\n                   \t\t\t     \n                   \t\t\t"
@@ -44950,7 +44964,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Cancel changes")]
+              [_vm._v("Отменить изменения")]
             ),
             _vm._v(
               "\n                   \t\t\t     \n                   \t\t\t"
@@ -44967,7 +44981,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Drop employee")]
+              [_vm._v("Удалить клиента")]
             )
           ]),
           _vm._v(" "),
@@ -45357,7 +45371,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Delete photo")]
+                      [_vm._v("Удалить фото")]
                     )
                   ])
                 ])
@@ -45395,7 +45409,7 @@ var render = function() {
                             },
                             on: { click: _vm.uploadPhoto }
                           },
-                          [_vm._v("Upload photo")]
+                          [_vm._v("Загрузить фото")]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -45482,7 +45496,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h1", [
       _c("span", { staticClass: "badge badge-pill badge-primary" }, [
-        _vm._v("Upload photos:")
+        _vm._v("Загрузить фото:")
       ])
     ])
   }
@@ -45517,9 +45531,9 @@ var render = function() {
           return [
             _c("div", [
               _vm._v(
-                "\n      \t\t\t\t\t\t\t\t" +
+                "\n\t\t\t\t\t\t\t" +
                   _vm._s(_vm.getdate(props.row.birthday)) +
-                  "\n    \t\t\t\t\t\t\t"
+                  "\n\t\t\t\t\t\t"
               )
             ])
           ]
@@ -45531,9 +45545,9 @@ var render = function() {
           return [
             _c("div", [
               _vm._v(
-                "\n      \t\t\t\t\t\t\t\t" +
+                "\n\t\t\t\t\t\t\t" +
                   _vm._s(_vm.getdate(props.row.deathday)) +
-                  "\n    \t\t\t\t\t\t\t"
+                  "\n\t\t\t\t\t\t"
               )
             ])
           ]
@@ -45556,7 +45570,7 @@ var render = function() {
                     title: "View, Edit, Delete this Employee"
                   }
                 },
-                [_vm._v("View")]
+                [_vm._v("Смотреть")]
               )
             ])
           ]
@@ -45644,7 +45658,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Save changes")]
+            [_vm._v("Сохранить изменения")]
           )
         ]),
         _vm._v(" "),
@@ -45812,17 +45826,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
-      _c("th", [_c("h4", [_vm._v("Lastname")])]),
+      _c("th", [_c("h4", [_vm._v("Фамилия")])]),
       _vm._v(" "),
-      _c("th", [_c("h4", [_vm._v("Firstname")])]),
+      _c("th", [_c("h4", [_vm._v("Имя")])]),
       _vm._v(" "),
-      _c("th", [_c("h4", [_vm._v("Middlename")])]),
+      _c("th", [_c("h4", [_vm._v("Отчество")])]),
       _vm._v(" "),
-      _c("th", [_c("h4", [_vm._v("Birstday")])]),
+      _c("th", [_c("h4", [_vm._v("Дата рождения")])]),
       _vm._v(" "),
-      _c("th", [_c("h4", [_vm._v("Deathday")])]),
+      _c("th", [_c("h4", [_vm._v("Дата смерти")])]),
       _vm._v(" "),
-      _c("th", [_c("h4", [_vm._v("Address")])])
+      _c("th", [_c("h4", [_vm._v("Адрес")])])
     ])
   }
 ]
